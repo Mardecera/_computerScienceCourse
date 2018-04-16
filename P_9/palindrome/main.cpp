@@ -2,34 +2,51 @@
 
 using namespace std;
 
-bool palindrome(char A[])
+bool palindrome(char *A)
 {
-    int cont = 0;
-    for(int i = 0; A[i] != '\0'; i++)
-        cont++;
-    char C[cont], D[cont];
-
-    for(int i = 0; A[i] != '\0'; i++)
+    int cont = 0, tt = 0;
+    char *B = A;
+    for(; *A != '\0'; A++)
     {
-        if(A[i] != ' ')
-        {
-            C[i] = A[i];
-        }
-        cout << A[i] << endl;
+        cont++;
     }
-    //C[cont - 1] = '\0';
+    char *C = A--;
+    C--;
 
-    cout << cont << endl;
-    cout << C << endl;
-    return true;
+    for(; *B != '\0'; B++, C--)
+    {
+        if(*B == ' ')
+        {
+            B++;
+            tt++;
+        }
+        if(*C == ' ')
+        {
+            C--;
+        }
+        if(*C != *B)
+        {
+            //cout << *C << " : " << *B << endl;
+            break;
+        }
+        tt++;
+    }
+    //cout << tt << endl;
+    if(tt != cont)
+        return false;
+    else
+        return true;
 
 }
 
 int main()
 {
-    char palin[] = "yo soy";
+    char palin[] = "ama";
     bool k;
     k = palindrome(palin);
-    cout << k << endl;
+    if(k)
+        cout << "'" << palin << "'" << " es un palindromo."<< endl;
+    else
+        cout << "'" << palin << "'" << " no es un palindromo."<< endl;
     return 0;
 }
